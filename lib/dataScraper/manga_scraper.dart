@@ -9,8 +9,7 @@ class MangaScraper {
   Future<List<Manga>> fetchSearchList(String url) async {
     List<Manga> mangas = [];
 
-    final response =
-        await http.get(Uri.parse("https://ww6.manganelo.tv/search/attack"));
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
       final mangaItems =

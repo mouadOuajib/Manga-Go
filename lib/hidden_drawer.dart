@@ -3,6 +3,7 @@ import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:mangago/screens/home_screen.dart';
 import 'package:mangago/screens/latest_manga_screen.dart';
 import 'package:mangago/screens/manga_news_screen.dart';
+import 'package:mangago/screens/hot_mangas.dart';
 import 'package:mangago/screens/profile_screen.dart';
 import 'package:mangago/screens/search_screen.dart';
 
@@ -42,10 +43,10 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           const MangaNews()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "Latest",
+              name: "Hot",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
-          const LatestManga()),
+          const HotMangas()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Profil",
@@ -64,6 +65,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       screens: _pages,
       initPositionSelected: 0,
       slidePercent: 30,
+      elevationAppBar: 0,
     );
   }
 }

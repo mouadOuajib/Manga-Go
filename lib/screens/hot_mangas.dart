@@ -4,14 +4,14 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../dataScraper/manga_scraper.dart';
 import '../models/manga.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HotMangas extends StatefulWidget {
+  const HotMangas({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HotMangas> createState() => _HotMangasState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HotMangasState extends State<HotMangas> {
   late Future<List<Manga>> getManga;
   final mangaScrapper = MangaScraper();
   late String endPoint;
@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    endPoint = "https://ww6.manganelo.tv/genre?page=$pageIndex";
+    endPoint = "https://ww6.manganelo.tv/genre?type=topview&page=$pageIndex";
     super.initState();
   }
 
@@ -30,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    // final theme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: theme.primary,
+      backgroundColor: const Color(0xfffff0e0),
       body: Padding(
         padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
         child: Column(
