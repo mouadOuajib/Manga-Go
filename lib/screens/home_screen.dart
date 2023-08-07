@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:mangago/screens/manga_details.dart';
 import '../dataScraper/manga_scraper.dart';
 import '../models/manga.dart';
 
@@ -63,41 +64,54 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: List.generate(
                               mangas.length,
                               (int index) {
-                                return AnimationConfiguration.staggeredGrid(
-                                  position: index,
-                                  duration: const Duration(milliseconds: 375),
-                                  columnCount: 3,
-                                  child: ScaleAnimation(
-                                    child: FadeInAnimation(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: 150,
-                                            width: double.maxFinite,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  mangas[index].coverImageUrl!,
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MangaDetails(
+                                                nameOfTheManga:
+                                                    mangas[index].title!,
+                                                mangaLink:
+                                                    mangas[index].mangaLink!)));
+                                  },
+                                  child: AnimationConfiguration.staggeredGrid(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 375),
+                                    columnCount: 3,
+                                    child: ScaleAnimation(
+                                      child: FadeInAnimation(
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 150,
+                                              width: double.maxFinite,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    mangas[index]
+                                                        .coverImageUrl!,
+                                                  ),
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          Text(
-                                            mangas[index].title!,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
+                                            SizedBox(
+                                              height: 10.h,
                                             ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
+                                            Text(
+                                              mangas[index].title!,
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

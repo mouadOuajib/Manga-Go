@@ -11,9 +11,13 @@ class Manga {
   bool? chapterIsNew;
   String? story;
   List<String>? genres;
-  String? state;
-  List<String>? listOfChapters;
+  String? status;
+  List<Map<String, String>>? chaptersMap;
   List<String>? chapterImages;
+  String? alternative;
+  String? author;
+  String? dateOfUpdate;
+  int? numberOfVotes;
   Manga(
       {this.title,
       this.coverImageUrl,
@@ -25,9 +29,13 @@ class Manga {
       this.lastChapter,
       this.lastChapterLink,
       this.genres,
-      this.state,
+      this.status,
       this.story,
-      this.listOfChapters,
+      this.chaptersMap,
       this.chapterImages,
-      this.chapterIsNew = false});
+      this.chapterIsNew = false,
+      this.alternative,
+      this.author,
+      this.dateOfUpdate,
+      this.numberOfVotes});
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:mangago/screens/home_screen.dart';
-import 'package:mangago/screens/latest_manga_screen.dart';
 import 'package:mangago/screens/manga_news_screen.dart';
 import 'package:mangago/screens/hot_mangas.dart';
 import 'package:mangago/screens/profile_screen.dart';

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mangago/datascraper/manga_scraper.dart';
-import 'package:mangago/widgets/manga_card.dart';
 
 import '../models/manga.dart';
 
@@ -36,6 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: theme.primary,
       appBar: AppBar(
         backgroundColor: theme.primary,
+        elevation: 0,
         actions: [
           Expanded(
             child: Container(
