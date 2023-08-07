@@ -66,7 +66,7 @@ class MangaScraper {
         final lastChapterUrl = lastChapterElement?.attributes['href'] ?? '';
 
         mangas.add(Manga(
-          coverImageUrl: imageUrl,
+          coverImageUrl: "https://ww6.manganelo.tv$imageUrl",
           title: title,
           mangaLink: mangaUrl,
           rating: rating,

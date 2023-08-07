@@ -3,7 +3,6 @@ import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:mangago/screens/home_screen.dart';
 import 'package:mangago/screens/latest_manga_screen.dart';
 import 'package:mangago/screens/manga_news_screen.dart';
-import 'package:mangago/screens/newest_manga_screen.dart';
 import 'package:mangago/screens/profile_screen.dart';
 import 'package:mangago/screens/search_screen.dart';
 
@@ -17,7 +16,7 @@ class HiddenDrawer extends StatefulWidget {
 class _HiddenDrawerState extends State<HiddenDrawer> {
   List<ScreenHiddenDrawer> _pages = [];
   final textStyle = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white);
+      fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey);
   final selectedTextStyle = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black);
   @override
@@ -25,34 +24,28 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
     _pages = [
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "Home Page",
+              name: "Home",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
           const HomeScreen()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "search Page",
+              name: "search",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
           const SearchScreen()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "Manga News",
+              name: "News",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
           const MangaNews()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "Latest Manga",
+              name: "Latest",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
           const LatestManga()),
-      ScreenHiddenDrawer(
-          ItemHiddenMenu(
-              name: "Newest Manga",
-              baseStyle: textStyle,
-              selectedStyle: selectedTextStyle),
-          const NewestMangas()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Profil",
@@ -65,12 +58,12 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    // final theme = Theme.of(context).colorScheme;
     return HiddenDrawerMenu(
-      backgroundColorMenu: theme.primary,
+      backgroundColorMenu: Colors.white,
       screens: _pages,
       initPositionSelected: 0,
-      slidePercent: 40,
+      slidePercent: 30,
     );
   }
 }

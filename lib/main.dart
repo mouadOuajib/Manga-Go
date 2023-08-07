@@ -22,9 +22,9 @@ class MangaGo extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
               colorScheme: const ColorScheme(
-                brightness: Brightness.dark,
-                primary: Color(0xffb042ff),
-                onPrimary: Colors.white,
+                brightness: Brightness.light,
+                primary: Color(0xfffff0e0),
+                onPrimary: Colors.black,
                 secondary: Color(0xffca8dfd),
                 onSecondary: Colors.white,
                 error: Colors.redAccent,
