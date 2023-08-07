@@ -16,44 +16,48 @@ class HiddenDrawer extends StatefulWidget {
 
 class _HiddenDrawerState extends State<HiddenDrawer> {
   List<ScreenHiddenDrawer> _pages = [];
+  final textStyle = const TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white);
+  final selectedTextStyle = const TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black);
   @override
   void initState() {
     _pages = [
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Home Page",
-              baseStyle: const TextStyle(),
-              selectedStyle: const TextStyle()),
+              baseStyle: textStyle,
+              selectedStyle: selectedTextStyle),
           const HomeScreen()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "search Page",
-              baseStyle: const TextStyle(),
-              selectedStyle: const TextStyle()),
+              baseStyle: textStyle,
+              selectedStyle: selectedTextStyle),
           const SearchScreen()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Manga News",
-              baseStyle: const TextStyle(),
-              selectedStyle: const TextStyle()),
+              baseStyle: textStyle,
+              selectedStyle: selectedTextStyle),
           const MangaNews()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Latest Manga",
-              baseStyle: const TextStyle(),
-              selectedStyle: const TextStyle()),
+              baseStyle: textStyle,
+              selectedStyle: selectedTextStyle),
           const LatestManga()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Newest Manga",
-              baseStyle: const TextStyle(),
-              selectedStyle: const TextStyle()),
+              baseStyle: textStyle,
+              selectedStyle: selectedTextStyle),
           const NewestMangas()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Profil",
-              baseStyle: const TextStyle(),
-              selectedStyle: const TextStyle()),
+              baseStyle: textStyle,
+              selectedStyle: selectedTextStyle),
           const ProfileScreen())
     ];
     super.initState();
@@ -61,10 +65,12 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return HiddenDrawerMenu(
-      backgroundColorMenu: Colors.purple,
+      backgroundColorMenu: theme.primary,
       screens: _pages,
       initPositionSelected: 0,
+      slidePercent: 40,
     );
   }
 }
