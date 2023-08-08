@@ -90,10 +90,12 @@ class _MangaDetailsState extends State<MangaDetails> {
                           width: 120,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
-                              image: DecorationImage(
-                                  image:
-                                      NetworkImage(manga.coverImageUrl ?? ""),
-                                  fit: BoxFit.cover)),
+                              color: Colors.amber
+                              // image: DecorationImage(
+                              //     image:
+                              //         NetworkImage(manga.coverImageUrl ?? ""),
+                              //     fit: BoxFit.cover),
+                              ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,

@@ -18,6 +18,7 @@ class Manga {
   String? author;
   String? dateOfUpdate;
   int? numberOfVotes;
+  String? views;
   Manga(
       {this.title,
       this.coverImageUrl,
@@ -37,5 +38,6 @@ class Manga {
       this.alternative,
       this.author,
       this.dateOfUpdate,
-      this.numberOfVotes});
+      this.numberOfVotes,
+      this.views});
 }

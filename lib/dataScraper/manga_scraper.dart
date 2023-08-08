@@ -86,38 +86,44 @@ class MangaScraper {
     return mangas;
   }
 
-  //fetch manga details
   Future<Manga> fetchMangaInfo(String url) async {
     final response = await http.get(Uri.parse(url));
-    log("11");
+
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
-      log("22");
-      String alternative =
-          document.querySelector('.info-alternative h2')?.text.trim() ?? '';
-      String author =
-          document.querySelector('.info-author a')?.text.trim() ?? '';
-      String status = document.querySelector('.info-status')?.text.trim() ?? '';
 
-      List<String> genres = [];
-      var genreLinks = document.querySelectorAll('.info-genres a');
-      for (var genreLink in genreLinks) {
-        genres.add(genreLink.text.trim());
+      final tableValues =
+          document.querySelectorAll('.variations-tableInfo .table-value');
+
+      final alternative = tableValues[0].text.trim();
+      final author = tableValues[1].querySelector('a.a-h')?.text.trim();
+      final status = tableValues[2].text.trim();
+
+      final genres = tableValues[3]
+          .querySelectorAll('a.a-h')
+          .map((element) => element.text.trim())
+          .toList();
+
+      final ratingElement = document.querySelector('em[property="v:average"]');
+      final numberOfVotesElement =
+          document.querySelector('em[property="v:votes"]');
+
+      final rating = ratingElement != null
+          ? double.tryParse(ratingElement.text.trim()) ?? 0.0
+          : 0.0;
+      final numberOfVotes = numberOfVotesElement != null
+          ? int.tryParse(numberOfVotesElement.text.trim()) ?? 0
+          : 0;
+      final elements =
+          document.querySelectorAll('.story-info-right-extent .stre-value');
+      String views = "";
+      String updated = "";
+      if (elements.length >= 2) {
+        updated = elements[0].text.trim();
+        views = elements[1].text.trim();
+      } else {
+        log('Unable to retrieve date of update and views');
       }
-
-      String updated = document.querySelector('.info-time')?.text ?? '';
-      double rating = double.tryParse(document
-                  .querySelector('.info-rate em[property="v:average"]')
-                  ?.text
-                  .trim() ??
-              '0') ??
-          0;
-      int votes = int.tryParse(document
-                  .querySelector('.info-rate em[property="v:votes"]')
-                  ?.text
-                  .trim() ??
-              '0') ??
-          0;
       String description = document
               .querySelector('.panel-story-info-description')
               ?.text
@@ -140,18 +146,18 @@ class MangaScraper {
           'uploadDate': uploadDate,
         });
       }
-      log("alternative=$alternative author=$author status=$status genres=$genres dateofupdate=$updated  rating=$rating numberofvotes=$votes story=$description chaptermap=$chapters");
-
+      log("alternative=$alternative author=$author status=$status genres=$genres  rating=$rating update=$updated view=$views numberofvotes=$numberOfVotes  story=$description chapters=$chapters ");
       return Manga(
         alternative: alternative,
         author: author,
         status: status,
         genres: genres,
         dateOfUpdate: updated,
+        views: views,
         rating: rating.toString(),
-        numberOfVotes: votes,
-        story: description,
+        numberOfVotes: numberOfVotes,
         chaptersMap: chapters,
+        story: description,
       );
     } else {
       throw Exception('Failed to fetch manga info');
