@@ -86,6 +86,7 @@ class MangaScraper {
     return mangas;
   }
 
+  //fetch manga info
   Future<Manga> fetchMangaInfo(String url) async {
     final response = await http.get(Uri.parse(url));
 
@@ -136,11 +137,15 @@ class MangaScraper {
       for (var chapterItem in chapterListItems) {
         String chapterName =
             chapterItem.querySelector('.chapter-name')?.text.trim() ?? '';
+        String chapterLink =
+            chapterItem.querySelector('.chapter-name')?.attributes['href'] ??
+                '';
         String views =
             chapterItem.querySelector('.chapter-view')?.text.trim() ?? '';
         String uploadDate =
             chapterItem.querySelector('.chapter-time')?.text.trim() ?? '';
         chapters.add({
+          'chapterLink': "https://ww6.manganelo.tv$chapterLink",
           'chapterName': chapterName,
           'views': views,
           'uploadDate': uploadDate,
@@ -182,10 +187,30 @@ class MangaScraper {
         }
       }
       log(tags.toString());
+      tags.remove("Pornographic");
+      tags.remove("Yaoi");
 
       return tags;
     } else {
       throw Exception('Failed to fetch tags');
+    }
+  }
+
+  //fetch chapter images
+  Future<List<String?>> fetchImageUrls(String link) async {
+    final response = await http.get(Uri.parse(link));
+
+    if (response.statusCode == 200) {
+      final document = parser.parse(response.body);
+
+      final imageElements =
+          document.querySelectorAll('.container-chapter-reader img');
+      final imageUrls =
+          imageElements.map((element) => element.attributes['src']).toList();
+      log(imageUrls.toString());
+      return imageUrls;
+    } else {
+      throw Exception('Failed to fetch image URLs');
     }
   }
 }
