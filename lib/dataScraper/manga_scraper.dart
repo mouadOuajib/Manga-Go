@@ -140,11 +140,15 @@ class MangaScraper {
         String chapterLink =
             chapterItem.querySelector('.chapter-name')?.attributes['href'] ??
                 '';
+        String chapterTitle =
+            chapterItem.querySelector('.chapter-name')?.attributes['title'] ??
+                '';
         String views =
             chapterItem.querySelector('.chapter-view')?.text.trim() ?? '';
         String uploadDate =
             chapterItem.querySelector('.chapter-time')?.text.trim() ?? '';
         chapters.add({
+          'title': chapterTitle,
           'chapterLink': "https://ww6.manganelo.tv$chapterLink",
           'chapterName': chapterName,
           'views': views,
@@ -197,19 +201,26 @@ class MangaScraper {
   }
 
   //fetch chapter images
-  Future<List<String?>> fetchImageUrls(String link) async {
+  Future<List<String>> fetchImageUrls(String link) async {
+    log(link);
+    final images = <String>[];
     final response = await http.get(Uri.parse(link));
 
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
+      final imageElements = document.querySelectorAll('.img-loading');
 
-      final imageElements =
-          document.querySelectorAll('.container-chapter-reader img');
-      final imageUrls =
-          imageElements.map((element) => element.attributes['src']).toList();
-      log(imageUrls.toString());
-      return imageUrls;
+      for (final imageElement in imageElements) {
+        final imgSrc = imageElement.attributes['src'];
+        if (imgSrc != null) {
+          images.add(imgSrc);
+        }
+      }
+
+      log(images.toString());
+      return images;
     } else {
+      log("status error: ${response.statusCode}");
       throw Exception('Failed to fetch image URLs');
     }
   }

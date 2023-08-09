@@ -4,6 +4,7 @@ import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mangago/datascraper/manga_scraper.dart';
+import 'package:mangago/screens/read_page.dart';
 import '../models/manga.dart';
 
 class MangaDetails extends StatefulWidget {
@@ -320,7 +321,18 @@ class _MangaDetailsState extends State<MangaDetails> {
                                   final chapter = manga.chaptersMap![index];
                                   if (chapter.isNotEmpty) {
                                     return InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ReadPage(
+                                                chapterTitle:
+                                                    "${chapter['title']}",
+                                                mangaLink:
+                                                    "${chapter['chapterLink']}"),
+                                          ),
+                                        );
+                                      },
                                       child: ListTile(
                                         title: SizedBox(
                                           width: double.maxFinite,

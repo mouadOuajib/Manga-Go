@@ -5,19 +5,19 @@ import 'package:mangago/dataScraper/manga_scraper.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/services.dart';
 
-class ReadManga extends StatefulWidget {
-  final String mangaChapter;
+class ReadPage extends StatefulWidget {
+  final String chapterTitle;
   final String mangaLink;
-  const ReadManga(
-      {Key? key, required this.mangaChapter, required this.mangaLink})
+  const ReadPage(
+      {Key? key, required this.chapterTitle, required this.mangaLink})
       : super(key: key);
 
   @override
-  State<ReadManga> createState() => _ReadMangaState();
+  State<ReadPage> createState() => _ReadPageState();
 }
 
-class _ReadMangaState extends State<ReadManga> {
-  late Future<List<String?>> getManga;
+class _ReadPageState extends State<ReadPage> {
+  late Future<List<String>> getManga;
   bool _isAppBarVisible = true;
   bool _isHorizontalMode = false;
   final ItemScrollController _itemScrollController = ItemScrollController();
@@ -55,7 +55,10 @@ class _ReadMangaState extends State<ReadManga> {
       duration: const Duration(milliseconds: 200),
       height: _isAppBarVisible ? kToolbarHeight : 0,
       child: AppBar(
-        title: Text("Chapter: ${widget.mangaChapter}"),
+        title: Text(
+          widget.chapterTitle,
+          style: TextStyle(fontSize: 14.sp),
+        ),
         actions: [
           InkWell(
             onTap: _toggleReadingMode,
@@ -69,22 +72,8 @@ class _ReadMangaState extends State<ReadManga> {
                 height: 30,
                 width: 30,
                 child: _isHorizontalMode
-                    ? Center(
-                        child: Image.asset(
-                          "assets/icons/horizontal.png",
-                          color: Colors.white,
-                          width: 20,
-                          height: 20,
-                        ),
-                      )
-                    : Center(
-                        child: Image.asset(
-                          "assets/icons/vertical.png",
-                          color: Colors.white,
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
+                    ? const Center(child: Icon(Icons.horizontal_distribute))
+                    : const Center(child: Icon(Icons.vertical_align_bottom)),
               ),
             ),
           )
