@@ -61,10 +61,12 @@ class _MangaDetailsState extends State<MangaDetails> {
                     height: size.height / 2.5,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
-                        color: const Color(0xfff9bbc3),
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20.r),
-                            bottomRight: Radius.circular(20.r))),
+                      color: const Color(0xfff9bbc3),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.r),
+                        bottomRight: Radius.circular(20.r),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10, right: 10, top: 30.h),
@@ -122,33 +124,22 @@ class _MangaDetailsState extends State<MangaDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: size.width * 0.5,
+                                  width: size.width * 0.54,
                                   child: Text(
                                     widget.title,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18.sp),
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                                    maxLines: 3,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 5.h,
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.5,
-                                  child: Text(
-                                    manga.genres!.join(' - '),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
+                                  height: 10.h,
                                 ),
                                 Text(manga.dateOfUpdate!),
                                 SizedBox(
-                                  height: 5.h,
+                                  height: 10.h,
                                 ),
                                 RichText(
                                   text: TextSpan(
@@ -201,14 +192,23 @@ class _MangaDetailsState extends State<MangaDetails> {
                                           text: '${manga.views} ',
                                           style: const TextStyle(
                                               color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
                                       const TextSpan(
-                                        text: 'Rate:',
+                                        text: 'Rating: ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black),
                                       ),
                                       TextSpan(
-                                          text: '${manga.rating}/5',
+                                          text: '${manga.rating} ',
                                           style: const TextStyle(
                                               color: Colors.black)),
                                     ],
@@ -256,6 +256,25 @@ class _MangaDetailsState extends State<MangaDetails> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Text(
+                                        "Genres :",
+                                        style: TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      SizedBox(
+                                        width: double.maxFinite,
+                                        child: Text(
+                                          manga.genres!.join(' \u2022 '),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 30.h,
+                                      ),
                                       RichText(
                                         text: TextSpan(
                                           children: [
