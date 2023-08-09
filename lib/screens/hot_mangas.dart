@@ -45,7 +45,9 @@ class _HotMangasState extends State<HotMangas> {
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Colors.redAccent,
+                    ),
                   );
                 } else {
                   final mangas = snapshot.data as List<Manga>;

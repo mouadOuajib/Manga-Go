@@ -5,22 +5,25 @@ import 'package:mangago/screens/manga_details.dart';
 import '../dataScraper/manga_scraper.dart';
 import '../models/manga.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class MangaList extends StatefulWidget {
+  final String title;
+  final String endPoint;
+  const MangaList({Key? key, required this.endPoint, required this.title})
+      : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MangaList> createState() => _MangaListState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MangaListState extends State<MangaList> {
   late Future<List<Manga>> getManga;
   final mangaScrapper = MangaScraper();
-  late String endPoint;
+  late String finalEndPoint;
   int pageIndex = 1;
 
   @override
   void initState() {
-    endPoint = "https://ww6.manganelo.tv/genre?page=$pageIndex";
+    finalEndPoint = "${widget.endPoint}$pageIndex";
     super.initState();
   }
 
@@ -34,12 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: theme.primary,
+      appBar: AppBar(
+        title: Text(widget.title),
+        elevation: 0,
+      ),
       body: Padding(
         padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
         child: Column(
           children: [
             FutureBuilder(
-              future: getMangas(endPoint),
+              future: getMangas(finalEndPoint),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
@@ -147,8 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () {
                                 setState(() {
                                   pageIndex = index + 1;
-                                  endPoint =
-                                      "https://ww6.manganelo.tv/genre?page=$pageIndex";
+                                  finalEndPoint =
+                                      "${widget.endPoint}$pageIndex";
                                 });
                               },
                               child: Container(

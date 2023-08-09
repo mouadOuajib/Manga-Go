@@ -163,4 +163,29 @@ class MangaScraper {
       throw Exception('Failed to fetch manga info');
     }
   }
+
+  //fetch tags
+  Future<List<String>> fetchTags() async {
+    final response =
+        await http.get(Uri.parse("https://ww6.manganelo.tv/genre?type=newest"));
+
+    if (response.statusCode == 200) {
+      final document = parser.parse(response.body);
+      final tags = <String>[];
+
+      final categoryRows = document.querySelectorAll('.panel-genres-list');
+      for (final row in categoryRows) {
+        final tagElements = row.querySelectorAll('a');
+        for (final element in tagElements) {
+          final tag = element.text.trim();
+          tags.add(tag);
+        }
+      }
+      log(tags.toString());
+
+      return tags;
+    } else {
+      throw Exception('Failed to fetch tags');
+    }
+  }
 }

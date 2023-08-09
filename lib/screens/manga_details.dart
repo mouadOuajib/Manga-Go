@@ -4,14 +4,17 @@ import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mangago/datascraper/manga_scraper.dart';
-// import 'package:mangago/screens/read_manga.dart';
 import '../models/manga.dart';
 
 class MangaDetails extends StatefulWidget {
+  final String imageUrl;
   final String mangaLink;
-  final String nameOfTheManga;
+  final String title;
   const MangaDetails(
-      {Key? key, required this.nameOfTheManga, required this.mangaLink})
+      {Key? key,
+      required this.mangaLink,
+      required this.title,
+      required this.imageUrl})
       : super(key: key);
 
   @override
@@ -26,155 +29,215 @@ class _MangaDetailsState extends State<MangaDetails> {
   @override
   void initState() {
     getManga = mangaScraper.fetchMangaInfo(widget.mangaLink);
-    // getEndPoint(widget.nameOfTheManga);
     super.initState();
   }
-
-  // String getEndPoint(String title) {
-  //   String newTitle = title.toLowerCase().replaceAll(' ', '-');
-  //   endPoint = "manga/$newTitle/";
-  //   log(endPoint);
-  //   return endPoint;
-  // }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: theme.primary,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: theme.secondary,
-        title: const Text("details"),
-      ),
+      backgroundColor: const Color(0xfff9bbc3),
       body: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: FutureBuilder(
-              future: getManga,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  log(snapshot.error.toString());
-                  return Text('Error: ${snapshot.error} gjsljdg');
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                final manga = snapshot.data!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Text(
-                      manga.title ?? "",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: FutureBuilder(
+            future: getManga,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                log(snapshot.error.toString());
+                return Text('Error: ${snapshot.error} gjsljdg');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final manga = snapshot.data!;
+              return Stack(
+                children: [
+                  Container(
+                    height: size.height / 2.5,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                        color: const Color(0xfff9bbc3),
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20.r),
+                            bottomRight: Radius.circular(20.r))),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10, top: 30.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 160,
-                          width: 120,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.amber
-                              // image: DecorationImage(
-                              //     image:
-                              //         NetworkImage(manga.coverImageUrl ?? ""),
-                              //     fit: BoxFit.cover),
-                              ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              ": الحالة",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 18),
-                            ),
-                            Text(
-                              manga.status ?? "",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                            ),
-                            Text(
-                              ": التصنيف",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 18),
-                            ),
-                            SizedBox(
-                              width: 200, // Adjust the width as needed
-                              child: Text(manga.genres.toString() ?? "",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  textDirection: TextDirection.rtl),
-                            ),
-                            Text(": التقييم",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                                textDirection: TextDirection.rtl),
-                            SizedBox(
-                              width: 200, // Adjust the width as needed
-                              child: Text(
-                                "${manga.rating ?? ""}/5.0 ",
-                                style: TextStyle(
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
                                   color: Colors.black,
-                                  fontSize: 14,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                textDirection: TextDirection.rtl,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          ": القصة",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                                borderRadius: BorderRadius.circular(10.r)),
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                         SizedBox(
-                          width: double.maxFinite, // Adjust the width as needed
-                          child: Text(
-                            """${manga.story ?? ""}""",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
+                          height: 25.h,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              height: 200,
+                              width: 130,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(widget.imageUrl),
+                                      fit: BoxFit.cover),
+                                  border:
+                                      Border.all(width: 2, color: Colors.white),
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 5,
+                                      spreadRadius: 0.2,
+                                      color: Colors.black,
+                                      offset: Offset(0, 0),
+                                    )
+                                  ]),
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 4,
-                            textDirection: TextDirection.rtl,
-                          ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: size.width * 0.5,
+                                  child: Text(
+                                    widget.title,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.sp),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.5,
+                                  child: Text(
+                                    manga.genres!.join(' - '),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(manga.dateOfUpdate!),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Status: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                          text: '${manga.status} ',
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Author: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                          text: '${manga.author} ',
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Views: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                          text: '${manga.views} ',
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                      const TextSpan(
+                                        text: 'Rate:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                          text: '${manga.rating}/5',
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
                         ),
                         Container(
                           padding: const EdgeInsets.all(8.0),
-                          color: theme.primary,
+                          decoration: BoxDecoration(
+                            color: theme.primary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           width: double.maxFinite,
-                          height: MediaQuery.of(context).size.height - 100,
+                          height: MediaQuery.of(context).size.height,
                           child: ContainedTabBarView(
                             tabs: const [
+                              Text(
+                                'story',
+                                style: TextStyle(color: Colors.black),
+                              ),
                               Text(
                                 'chapters',
                                 style: TextStyle(color: Colors.black),
@@ -185,29 +248,83 @@ class _MangaDetailsState extends State<MangaDetails> {
                               ),
                             ],
                             views: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 15, right: 10, left: 10),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: 'Alternative: ',
+                                              style: TextStyle(
+                                                  color: Colors.redAccent,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            TextSpan(
+                                                text: '${manga.alternative} ',
+                                                style: const TextStyle(
+                                                    color: Colors.black)),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Text(
+                                        "Description :",
+                                        style: TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        manga.story!
+                                            .substring(28, manga.story!.length),
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                               ListView.builder(
                                 itemCount: manga.chaptersMap!.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final chapter = manga.chaptersMap![index];
                                   if (chapter.isNotEmpty) {
                                     return InkWell(
-                                      onTap: () {
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(builder: (context) {
-                                        //     log(manga.mangaLink.toString());
-                                        //     return ReadManga(
-                                        //         mangaChapter: chapter,
-                                        //         mangaLink: widget.mangaLink);
-                                        //   }),
-                                        // );
-                                      },
+                                      onTap: () {},
                                       child: ListTile(
-                                        title: Text("chapter $chapter"),
+                                        title: SizedBox(
+                                          width: double.maxFinite,
+                                          child: Text(
+                                            """${chapter["chapterName"]}""",
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.bold),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        subtitle: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                                """Views: ${chapter["views"]}"""),
+                                            Text(
+                                                """${chapter["uploadDate"]}"""),
+                                          ],
+                                        ),
                                         trailing: InkWell(
-                                            onTap: () {
-                                              // _downloadChapter(widget.mangaLink + chapter, manga.title);
-                                            },
+                                            onTap: () {},
                                             child: const Icon(Icons.download)),
                                       ),
                                     );
@@ -216,17 +333,25 @@ class _MangaDetailsState extends State<MangaDetails> {
                                   }
                                 },
                               ),
-                              Container(color: Colors.green)
+                              Container(
+                                color: Colors.green,
+                                child: const Center(
+                                  child: Text(
+                                    'Comments content goes here',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
                             ],
                             onChange: (index) => log(index.toString()),
                           ),
                         ),
                       ],
                     ),
-                  ],
-                );
-              },
-            ),
+                  )
+                ],
+              );
+            },
           ),
         ),
       ),

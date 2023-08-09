@@ -6,6 +6,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mangago/datascraper/manga_scraper.dart';
 
 import '../models/manga.dart';
+import 'manga_details.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -91,7 +92,9 @@ class _SearchScreenState extends State<SearchScreen> {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.redAccent,
+                ),
               );
             } else {
               List<Manga> mangas = snapshot.data as List<Manga>;
@@ -113,31 +116,44 @@ class _SearchScreenState extends State<SearchScreen> {
                           columnCount: 3,
                           child: ScaleAnimation(
                             child: FadeInAnimation(
-                                child: Column(
-                              children: [
-                                Container(
-                                  height: 150,
-                                  width: double.maxFinite,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              mangas[index].coverImageUrl!),
-                                          fit: BoxFit.cover)),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Text(
-                                  mangas[index].title!,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
+                                child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MangaDetails(
+                                        imageUrl: mangas[index].coverImageUrl!,
+                                        title: mangas[index].title!,
+                                        mangaLink: mangas[index].mangaLink!),
                                   ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    width: double.maxFinite,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                mangas[index].coverImageUrl!),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Text(
+                                    mangas[index].title!,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             )),
                           ),
                         );
