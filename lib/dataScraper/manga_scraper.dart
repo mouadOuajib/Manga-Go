@@ -208,20 +208,18 @@ class MangaScraper {
 
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
-      final imageElements = document.querySelectorAll('.img-loading');
-
-      for (final imageElement in imageElements) {
-        final imgSrc = imageElement.attributes['src'];
+      final elements = document.querySelectorAll('.img-loading');
+      for (final element in elements) {
+        final imgSrc = element.attributes['src'];
+        log(imgSrc.toString());
         if (imgSrc != null) {
           images.add(imgSrc);
         }
       }
-
-      log(images.toString());
-      return images;
     } else {
       log("status error: ${response.statusCode}");
-      throw Exception('Failed to fetch image URLs');
     }
+    log(images.toString());
+    return images;
   }
 }
