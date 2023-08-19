@@ -13,7 +13,7 @@ class MangaNews extends StatefulWidget {
 class _MangaNewsState extends State<MangaNews> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    // final theme = Theme.of(context).colorScheme;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(

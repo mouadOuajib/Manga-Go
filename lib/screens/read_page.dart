@@ -19,7 +19,7 @@ class ReadPage extends StatefulWidget {
 class _ReadPageState extends State<ReadPage> {
   late Future<List<String>> getManga;
   bool _isAppBarVisible = true;
-  bool _isHorizontalMode = false;
+  bool _isHorizontalMode = true;
   bool loading = false;
   final ItemScrollController _itemScrollController = ItemScrollController();
   final PageController _pageController = PageController();

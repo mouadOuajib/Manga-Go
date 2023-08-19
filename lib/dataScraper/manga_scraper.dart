@@ -3,16 +3,16 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:mangago/models/manga.dart';
-import 'package:html/dom.dart';
 
 class MangaScraper {
-  final String baseUrl = "https://ww6.manganelo.tv";
+  final String baseUrl = "https://ww6.manganelo.tv/";
 
   //fetch search manga list
   Future<List<Manga>> fetchSearchList(String url) async {
     List<Manga> mangas = [];
 
     final response = await http.get(Uri.parse(url));
+    log("url of search :" + url);
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
       final mangaItems =
@@ -49,13 +49,9 @@ class MangaScraper {
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      log("1");
       final document = parser.parse(response.body);
-      log("2");
       final mangaItems = document.querySelectorAll('.content-genres-item');
-      log("3");
       for (var mangaItem in mangaItems) {
-        log("4");
         final imgElement = mangaItem.querySelector('.genres-item-img img');
         final imageUrl = imgElement?.attributes['src'] ?? '';
 
@@ -223,4 +219,27 @@ class MangaScraper {
     log(images.toString());
     return images;
   }
+
+  // static Future<List<String>> mangakakalot() async {
+  //   final images = <String>[];
+  //   final response = await http.get(Uri.parse(
+  //       "https://ww6.mangakakalot.tv/chapter/manga-yp975598/chapter-44"));
+
+  //   if (response.statusCode == 200) {
+  //     final document = parser.parse(response.body);
+  //     // log(response.body.toString());
+  //     final elements = document.querySelectorAll('.img-loading');
+  //     for (final element in elements) {
+  //       final imgSrc = element.attributes['data-src'];
+  //       log(imgSrc.toString());
+  //       if (imgSrc != null) {
+  //         images.add(imgSrc);
+  //       }
+  //     }
+  //   } else {
+  //     log("status error: ${response.statusCode}");
+  //   }
+  //   log(images.toString());
+  //   return images;
+  // }
 }
