@@ -220,14 +220,52 @@ class MangaScraper {
     return images;
   }
 
+  static Future<Manga> test(String link) async {
+    log(link);
+    Manga manga = Manga();
+    final List<String> images = [];
+    String? nextChapter = "";
+    String? previousChapter = "";
+    final response = await http.get(Uri.parse(link));
+
+    if (response.statusCode == 200) {
+      final document = parser.parse(response.body);
+      final elements = document.querySelectorAll('.img-loading');
+      for (final element in elements) {
+        final imgSrc = element.attributes['data-src'];
+        log(imgSrc.toString());
+        if (imgSrc != null) {
+          images.add(imgSrc);
+        }
+      }
+      final next = document.querySelector(".navi-change-chapter-btn-next");
+
+      if (next != null) {
+        nextChapter = next.attributes["href"];
+      }
+      final previous = document.querySelector(".navi-change-chapter-btn-prev");
+
+      if (previous != null) {
+        previousChapter = previous.attributes["href"];
+      }
+      log(nextChapter!);
+      log(previousChapter!);
+      manga = Manga(
+          chapterImages: images,
+          nextChapterUrl: nextChapter,
+          previousChapterUrl: previousChapter);
+    } else {
+      log("status error: ${response.statusCode}");
+    }
+    return manga;
+  }
+
   // static Future<List<String>> mangakakalot() async {
   //   final images = <String>[];
   //   final response = await http.get(Uri.parse(
   //       "https://ww6.mangakakalot.tv/chapter/manga-yp975598/chapter-44"));
-
   //   if (response.statusCode == 200) {
   //     final document = parser.parse(response.body);
-  //     // log(response.body.toString());
   //     final elements = document.querySelectorAll('.img-loading');
   //     for (final element in elements) {
   //       final imgSrc = element.attributes['data-src'];

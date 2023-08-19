@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mangago/dataScraper/manga_scraper.dart';
+import 'package:mangago/models/manga.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/services.dart';
 
@@ -17,16 +18,18 @@ class ReadPage extends StatefulWidget {
 }
 
 class _ReadPageState extends State<ReadPage> {
-  late Future<List<String>> getManga;
-  bool _isAppBarVisible = true;
+  late Future<Manga> getManga;
+  bool _isAppBarVisible = false;
   bool _isHorizontalMode = true;
+  late String nextChapter;
+  late String previousChapter;
   bool loading = false;
   final ItemScrollController _itemScrollController = ItemScrollController();
   final PageController _pageController = PageController();
 
   @override
   void initState() {
-    getManga = MangaScraper.fetchImageUrls(widget.mangaLink);
+    getManga = MangaScraper.test(widget.mangaLink);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     super.initState();
   }
@@ -115,6 +118,7 @@ class _ReadPageState extends State<ReadPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return Scaffold(
       body: GestureDetector(
         onTap: _toggleAppBarVisibility,
@@ -132,28 +136,87 @@ class _ReadPageState extends State<ReadPage> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  final manga = snapshot.data as List<String>;
+                  final manga = snapshot.data as Manga;
                   return _isHorizontalMode
                       ? PageView.builder(
                           controller: _pageController,
                           scrollDirection: Axis.horizontal,
-                          itemCount: manga.length,
+                          itemCount: manga.chapterImages!.length,
                           itemBuilder: (context, index) {
-                            return _buildMangaPage(index, manga);
+                            nextChapter = manga.nextChapterUrl ?? "";
+                            previousChapter = manga.previousChapterUrl ?? "";
+                            log(nextChapter + previousChapter);
+                            return _buildMangaPage(index, manga.chapterImages!);
                           },
                         )
                       : ScrollablePositionedList.builder(
                           itemScrollController: _itemScrollController,
                           scrollDirection: Axis.vertical,
-                          itemCount: manga.length,
+                          itemCount: manga.chapterImages!.length,
                           itemBuilder: (context, index) {
                             log(manga.toString());
-                            return _buildMangaPage(index, manga);
+                            nextChapter = manga.nextChapterUrl ?? "";
+                            previousChapter = manga.previousChapterUrl ?? "";
+                            log(nextChapter + previousChapter);
+                            return _buildMangaPage(index, manga.chapterImages!);
                           },
                         );
                 }
               },
             ),
+            if (_isAppBarVisible)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 60.h,
+                  color: theme.primary,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (previousChapter != "")
+                          InkWell(
+                              onTap: () {
+                                if (previousChapter.isNotEmpty) {
+                                  log(widget.mangaLink);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => ReadPage(
+                                        chapterTitle: "",
+                                        mangaLink:
+                                            "https://ww6.manganelo.tv$previousChapter",
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Icon(Icons.arrow_back)),
+                        if (nextChapter != "")
+                          InkWell(
+                              onTap: () {
+                                if (nextChapter.isNotEmpty) {
+                                  log(widget.mangaLink);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => ReadPage(
+                                        chapterTitle: "",
+                                        mangaLink:
+                                            "https://ww6.manganelo.tv$nextChapter",
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Icon(Icons.arrow_forward)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             _buildAppBar(),
           ],
         ),

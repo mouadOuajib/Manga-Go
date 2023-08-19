@@ -14,6 +14,8 @@ class Manga {
   String? status;
   List<Map<String, String>>? chaptersMap;
   List<String>? chapterImages;
+  String? nextChapterUrl;
+  String? previousChapterUrl;
   String? alternative;
   String? author;
   String? dateOfUpdate;
@@ -39,5 +41,7 @@ class Manga {
       this.author,
       this.dateOfUpdate,
       this.numberOfVotes,
-      this.views});
+      this.views,
+      this.nextChapterUrl,
+      this.previousChapterUrl});
 }
