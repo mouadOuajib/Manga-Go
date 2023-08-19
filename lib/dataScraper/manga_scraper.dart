@@ -201,16 +201,17 @@ class MangaScraper {
   }
 
   //fetch chapter images
-  Future<List<String>> fetchImageUrls(String link) async {
+  static Future<List<String>> fetchImageUrls(String link) async {
     log(link);
     final images = <String>[];
     final response = await http.get(Uri.parse(link));
 
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
+      // log(response.body.toString());
       final elements = document.querySelectorAll('.img-loading');
       for (final element in elements) {
-        final imgSrc = element.attributes['src'];
+        final imgSrc = element.attributes['data-src'];
         log(imgSrc.toString());
         if (imgSrc != null) {
           images.add(imgSrc);

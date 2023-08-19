@@ -1,12 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mangago/chapter_imges/http_service.dart';
 import 'package:mangago/dataScraper/manga_scraper.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/services.dart';
-
-import '../chapter_imges/scraper_service.dart';
 
 class ReadPage extends StatefulWidget {
   final String chapterTitle;
@@ -20,35 +17,22 @@ class ReadPage extends StatefulWidget {
 }
 
 class _ReadPageState extends State<ReadPage> {
-  List<String> getManga = [];
+  late Future<List<String>> getManga;
   bool _isAppBarVisible = true;
   bool _isHorizontalMode = false;
   bool loading = false;
   final ItemScrollController _itemScrollController = ItemScrollController();
   final PageController _pageController = PageController();
-  final ScrapingService mangaScraper = ScrapingService();
 
   @override
   void initState() {
-    getData();
+    getManga = MangaScraper.fetchImageUrls(widget.mangaLink);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     super.initState();
   }
 
-  Future<List<String>> getData() async {
-    getManga.clear();
-    loading = true;
-    // setState(() {});
-    final html = await HttpService.getHtml();
-    if (html != null) getManga = ScrapingService.getImages(html);
-    loading = false;
-    // setState(() {});
-    return getManga;
-  }
-
   @override
   void dispose() {
-    // Show the status bar when the screen is disposed
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
@@ -137,7 +121,7 @@ class _ReadPageState extends State<ReadPage> {
         child: Stack(
           children: [
             FutureBuilder(
-              future: getData(),
+              future: getManga,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   log(snapshot.error.toString());
