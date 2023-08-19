@@ -5,6 +5,8 @@ import 'package:mangago/dataScraper/manga_scraper.dart';
 import 'package:mangago/models/manga.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ReadPage extends StatefulWidget {
   final String chapterTitle;
@@ -184,12 +186,18 @@ class _ReadPageState extends State<ReadPage> {
                                 if (previousChapter.isNotEmpty) {
                                   log(widget.mangaLink);
                                   Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) => ReadPage(
-                                        chapterTitle: "",
-                                        mangaLink:
-                                            "https://ww6.manganelo.tv$previousChapter",
-                                      ),
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                          secondaryAnimation) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: ReadPage(
+                                            chapterTitle: "",
+                                            mangaLink:
+                                                "https://ww6.manganelo.tv$previousChapter",
+                                          ),
+                                        );
+                                      },
                                     ),
                                   );
                                 }
@@ -201,12 +209,18 @@ class _ReadPageState extends State<ReadPage> {
                                 if (nextChapter.isNotEmpty) {
                                   log(widget.mangaLink);
                                   Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) => ReadPage(
-                                        chapterTitle: "",
-                                        mangaLink:
-                                            "https://ww6.manganelo.tv$nextChapter",
-                                      ),
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                          secondaryAnimation) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: ReadPage(
+                                            chapterTitle: "",
+                                            mangaLink:
+                                                "https://ww6.manganelo.tv$nextChapter",
+                                          ),
+                                        );
+                                      },
                                     ),
                                   );
                                 }
