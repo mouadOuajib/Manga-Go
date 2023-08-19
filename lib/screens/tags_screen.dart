@@ -49,11 +49,18 @@ class _TagsScreenState extends State<TagsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MangaList(
-                              title: "Latest",
-                              endPoint:
-                                  "https://ww6.manganelo.tv/genre/Mature?page="),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: const MangaList(
+                                title: "Latest",
+                                endPoint:
+                                    "https://ww6.manganelo.tv/genre/Mature?page=",
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -67,11 +74,18 @@ class _TagsScreenState extends State<TagsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MangaList(
-                              title: "Newest",
-                              endPoint:
-                                  "https://ww6.manganelo.tv/genre/Mature?type=newest&page="),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: const MangaList(
+                                title: "Newest",
+                                endPoint:
+                                    "https://ww6.manganelo.tv/genre/Mature?type=newest&page=",
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -85,11 +99,18 @@ class _TagsScreenState extends State<TagsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MangaList(
-                              title: "Top View",
-                              endPoint:
-                                  "https://ww6.manganelo.tv/genre/Mature?type=topview&page="),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: const MangaList(
+                                title: "Top View",
+                                endPoint:
+                                    "https://ww6.manganelo.tv/genre/Mature?type=topview&page=",
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -121,11 +142,18 @@ class _TagsScreenState extends State<TagsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MangaList(
-                              title: "All",
-                              endPoint:
-                                  "https://ww6.manganelo.tv/genre/Mature?page="),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: const MangaList(
+                                title: "All",
+                                endPoint:
+                                    "https://ww6.manganelo.tv/genre/Mature?page=",
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -139,11 +167,18 @@ class _TagsScreenState extends State<TagsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MangaList(
-                              title: "Completed",
-                              endPoint:
-                                  "https://ww6.manganelo.tv/genre/Mature?state=completed&page="),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: const MangaList(
+                                title: "Completed",
+                                endPoint:
+                                    "https://ww6.manganelo.tv/genre/Mature?state=completed&page=",
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -157,11 +192,18 @@ class _TagsScreenState extends State<TagsScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const MangaList(
-                              title: "OnGoing",
-                              endPoint:
-                                  "https://ww6.manganelo.tv/genre/Mature?state=ongoing&page="),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: const MangaList(
+                                title: "OnGoing",
+                                endPoint:
+                                    "https://ww6.manganelo.tv/genre/Mature?state=ongoing&page=",
+                              ),
+                            );
+                          },
                         ),
                       );
                     },
@@ -225,11 +267,18 @@ class _TagsScreenState extends State<TagsScreen> {
                                         onTap: () {
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(
-                                              builder: (context) => MangaList(
-                                                  title: mangas[index],
-                                                  endPoint:
-                                                      "https://ww6.manganelo.tv/genre/${mangas[index]}?page="),
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation,
+                                                  secondaryAnimation) {
+                                                return FadeTransition(
+                                                  opacity: animation,
+                                                  child: MangaList(
+                                                    title: mangas[index],
+                                                    endPoint:
+                                                        "https://ww6.manganelo.tv/genre/${mangas[index]}?page=",
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           );
                                         },

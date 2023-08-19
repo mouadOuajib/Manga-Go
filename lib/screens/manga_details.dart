@@ -324,12 +324,19 @@ class _MangaDetailsState extends State<MangaDetails> {
                                       onTap: () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ReadPage(
-                                                chapterTitle:
-                                                    "${chapter['title']}",
-                                                mangaLink:
-                                                    "${chapter['chapterLink']}"),
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                secondaryAnimation) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: ReadPage(
+                                                  chapterTitle:
+                                                      "${chapter['title']}",
+                                                  mangaLink:
+                                                      "${chapter['chapterLink']}",
+                                                ),
+                                              );
+                                            },
                                           ),
                                         );
                                       },

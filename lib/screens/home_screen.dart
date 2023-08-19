@@ -70,13 +70,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MangaDetails(
-                                            imageUrl:
-                                                mangas[index].coverImageUrl!,
-                                            title: mangas[index].title!,
-                                            mangaLink:
-                                                mangas[index].mangaLink!),
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                            secondaryAnimation) {
+                                          return FadeTransition(
+                                            opacity: animation,
+                                            child: MangaDetails(
+                                              imageUrl:
+                                                  mangas[index].coverImageUrl!,
+                                              title: mangas[index].title!,
+                                              mangaLink:
+                                                  mangas[index].mangaLink!,
+                                            ),
+                                          );
+                                        },
                                       ),
                                     );
                                   },
