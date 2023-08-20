@@ -144,8 +144,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         image: DecorationImage(
-                                            image: NetworkImage(
-                                                mangas[index].coverImageUrl!),
+                                            image: NetworkImage(mangas[index]
+                                                    .coverImageUrl ??
+                                                "https://pm1.aminoapps.com/6538/ab1e252b9b45b9e1bb64a2a60a3d5dc3250357ec_00.jpg"),
                                             fit: BoxFit.cover)),
                                   ),
                                   SizedBox(

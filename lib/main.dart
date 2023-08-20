@@ -1,14 +1,30 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mangago/hidden_drawer.dart';
+import 'package:mangago/provider/current_reading_provider.dart';
+import 'package:mangago/provider/favorite_provider.dart';
+import 'package:mangago/provider/finished_manga_provider.dart';
 import 'package:mangago/provider/watch_later.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => WatchLaterProvider(),
-      child: MangaGo(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<WatchLaterProvider>(
+          create: (context) => WatchLaterProvider(),
+        ),
+        ChangeNotifierProvider<FavoriteProvider>(
+          create: (context) => FavoriteProvider(),
+        ),
+        ChangeNotifierProvider<FinishedProvider>(
+          create: (context) => FinishedProvider(),
+        ),
+        ChangeNotifierProvider<CurrentReadingProvider>(
+          create: (context) => CurrentReadingProvider(),
+        ),
+      ],
+      child: const MangaGo(),
     ),
   );
 }

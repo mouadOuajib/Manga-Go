@@ -46,7 +46,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
               name: "Favorite",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
-          const HotMangas()),
+          FavoriteMangaPage()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
               name: "Tags",

@@ -21,6 +21,9 @@ class Manga {
   String? dateOfUpdate;
   int? numberOfVotes;
   bool? isAddedToWatchLater;
+  bool? isAddedToFavorite;
+  bool? isAddedToCurrentRead;
+  bool? isAddedToFinished;
   String? views;
   Manga(
       {this.title,
@@ -45,5 +48,8 @@ class Manga {
       this.numberOfVotes,
       this.views,
       this.nextChapterUrl,
-      this.previousChapterUrl});
+      this.previousChapterUrl,
+      this.isAddedToCurrentRead = false,
+      this.isAddedToFavorite = false,
+      this.isAddedToFinished = false});
 }

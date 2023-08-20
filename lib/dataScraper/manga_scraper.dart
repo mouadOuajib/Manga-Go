@@ -12,7 +12,7 @@ class MangaScraper {
     List<Manga> mangas = [];
 
     final response = await http.get(Uri.parse(url));
-    log("url of search :" + url);
+    log("url of search :$url");
     if (response.statusCode == 200) {
       final document = parser.parse(response.body);
       final mangaItems =
@@ -20,7 +20,7 @@ class MangaScraper {
 
       for (var mangaItem in mangaItems) {
         final imgElement = mangaItem.querySelector('.item-img img');
-        final imageUrl = imgElement?.attributes['src'] ?? '';
+        final imageUrl = imgElement?.attributes['src'];
 
         final titleElement = mangaItem.querySelector('.item-title');
         final title = titleElement?.text.trim() ?? '';
