@@ -43,7 +43,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           const MangaNews()),
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "Hot",
+              name: "Favorite",
               baseStyle: textStyle,
               selectedStyle: selectedTextStyle),
           const HotMangas()),

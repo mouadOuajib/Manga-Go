@@ -1,0 +1,24 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+
+import '../models/manga.dart';
+
+class WatchLaterProvider extends ChangeNotifier {
+  List<Manga> _watchLaterList = [];
+
+  List<Manga> get watchLaterList => _watchLaterList;
+
+  void addToWatchLater(Manga manga) {
+    _watchLaterList.add(manga);
+    log("this is the list of watch later : $_watchLaterList");
+    notifyListeners();
+  }
+
+  void removeFromWatchLater(Manga manga) {
+    _watchLaterList.remove(manga);
+    log("this is the list of watch later : $_watchLaterList");
+
+    notifyListeners();
+  }
+}

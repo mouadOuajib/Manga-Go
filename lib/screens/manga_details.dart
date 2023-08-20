@@ -7,6 +7,8 @@ import 'package:mangago/datascraper/manga_scraper.dart';
 import 'package:mangago/screens/read_page.dart';
 import 'package:mangago/src/widgets/app_button.dart';
 import '../models/manga.dart';
+import '../provider/watch_later.dart';
+import 'package:provider/provider.dart';
 
 class MangaDetails extends StatefulWidget {
   final String imageUrl;
@@ -327,20 +329,82 @@ class _MangaDetailsState extends State<MangaDetails> {
                                       ),
                                       Row(
                                         children: [
-                                          AppButton(
-                                            color: Colors.greenAccent,
-                                            buttontext: "Watch List",
-                                            width: 100.w,
+                                          Consumer<WatchLaterProvider>(
+                                            builder: (context,
+                                                watchLaterProvider, child) {
+                                              return AppButton(
+                                                onTap: () {
+                                                  if (manga
+                                                          .isAddedToWatchLater ==
+                                                      false) {
+                                                    watchLaterProvider
+                                                        .addToWatchLater(manga);
+                                                  } else {
+                                                    watchLaterProvider
+                                                        .removeFromWatchLater(
+                                                            manga);
+                                                  }
+                                                  if (manga
+                                                          .isAddedToWatchLater ==
+                                                      true) {
+                                                    manga.isAddedToWatchLater =
+                                                        false;
+                                                  } else {
+                                                    manga.isAddedToWatchLater =
+                                                        true;
+                                                  }
+                                                  log(manga.isAddedToWatchLater
+                                                      .toString());
+                                                },
+                                                color: Colors.greenAccent,
+                                                buttontext: manga
+                                                            .isAddedToWatchLater ==
+                                                        false
+                                                    ? "Read Later"
+                                                    : "Remove Frome Read later",
+                                                width: 180.w,
+                                              );
+                                            },
                                           ),
                                           SizedBox(
                                             width: 20.w,
                                           ),
                                           AppButton(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                PageRouteBuilder(
+                                                  pageBuilder: (context,
+                                                      animation,
+                                                      secondaryAnimation) {
+                                                    return FadeTransition(
+                                                      opacity: animation,
+                                                      child: ReadPage(
+                                                        chapterTitle:
+                                                            "${manga.chaptersMap![manga.chaptersMap!.length - 1]['title']}",
+                                                        mangaLink:
+                                                            "${manga.chaptersMap![manga.chaptersMap!.length - 1]['chapterLink']}",
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
                                             color: Colors.redAccent,
                                             buttontext: "Start Reading",
                                             width: 100.w,
                                           ),
                                         ],
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      AppButton(
+                                        buttontext: "...",
+                                        color: theme.onBackground,
+                                        width: 40.w,
+                                        border: Border.all(
+                                            color: Colors.grey, width: 0.3),
                                       )
                                     ],
                                   ),

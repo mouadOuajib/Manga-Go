@@ -20,6 +20,7 @@ class Manga {
   String? author;
   String? dateOfUpdate;
   int? numberOfVotes;
+  bool? isAddedToWatchLater;
   String? views;
   Manga(
       {this.title,
@@ -37,6 +38,7 @@ class Manga {
       this.chaptersMap,
       this.chapterImages,
       this.chapterIsNew = false,
+      this.isAddedToWatchLater = false,
       this.alternative,
       this.author,
       this.dateOfUpdate,

@@ -1,9 +1,16 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mangago/hidden_drawer.dart';
+import 'package:mangago/provider/watch_later.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
-  runApp(const MangaGo());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => WatchLaterProvider(),
+      child: MangaGo(),
+    ),
+  );
 }
 
 class MangaGo extends StatelessWidget {
