@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mangago/datascraper/manga_scraper.dart';
 import 'package:mangago/screens/read_page.dart';
+import 'package:mangago/src/widgets/app_button.dart';
 import '../models/manga.dart';
 
 class MangaDetails extends StatefulWidget {
@@ -311,6 +312,36 @@ class _MangaDetailsState extends State<MangaDetails> {
                                             .substring(28, manga.story!.length),
                                         style: TextStyle(fontSize: 16.sp),
                                       ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Text(
+                                        "Options :",
+                                        style: TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          AppButton(
+                                            color: Colors.greenAccent,
+                                            buttontext: "Watch List",
+                                            width: 100.w,
+                                          ),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          AppButton(
+                                            color: Colors.redAccent,
+                                            buttontext: "Start Reading",
+                                            width: 100.w,
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),

@@ -5,8 +5,6 @@ import 'package:mangago/dataScraper/manga_scraper.dart';
 import 'package:mangago/models/manga.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ReadPage extends StatefulWidget {
   final String chapterTitle;
@@ -95,7 +93,7 @@ class _ReadPageState extends State<ReadPage> {
           scrollDirection: Axis.vertical,
           child: InteractiveViewer(
             minScale: 1.0,
-            maxScale: _calculateMaxScale(imageUrl),
+            maxScale: 2,
             child: Image.network(
               imageUrl,
               fit: BoxFit.contain,
@@ -104,19 +102,23 @@ class _ReadPageState extends State<ReadPage> {
         ),
       );
     } else {
-      return Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
+      return InteractiveViewer(
+        minScale: 1.0,
+        maxScale: 2,
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.contain,
+        ),
       );
     }
   }
 
-  double _calculateMaxScale(String imageUrl) {
-    final double imageWidth = MediaQuery.of(context).size.width;
-    final double deviceWidth = MediaQuery.of(context).size.width;
-    final double maxScale = deviceWidth / imageWidth;
-    return maxScale;
-  }
+  // double _calculateMaxScale(String imageUrl) {
+  //   final double imageWidth = MediaQuery.of(context).size.width;
+  //   final double deviceWidth = MediaQuery.of(context).size.width;
+  //   final double maxScale = deviceWidth / imageWidth;
+  //   return maxScale;
+  // }
 
   @override
   Widget build(BuildContext context) {
