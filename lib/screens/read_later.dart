@@ -54,8 +54,8 @@ class _ReadLaterState extends State<ReadLater> {
                             child: Column(
                               children: [
                                 ListTile(
-                                  title: Text(manga.chaptersMap?[0]['title'] ??
-                                      "this is the title"),
+                                  title:
+                                      Text(manga.title ?? "this is the title"),
                                   leading: Container(
                                     height: double.maxFinite,
                                     width: 50,

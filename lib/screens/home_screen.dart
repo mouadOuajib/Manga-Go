@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    endPoint = "https://ww6.manganelo.tv/genre?page=$pageIndex";
+    endPoint = "https://ww6.manganelo.tv/genre";
     super.initState();
   }
 

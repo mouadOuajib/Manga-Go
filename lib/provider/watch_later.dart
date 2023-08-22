@@ -10,7 +10,7 @@ class WatchLaterProvider extends ChangeNotifier {
   void addToWatchLater(Manga manga) {
     _watchLaterList.add(manga);
     log("this is the list of watch later : $_watchLaterList");
-    // log("""title: ${_watchLaterList[0]["title"]}""");
+    // log("""title: ${_watchLaterList[0].chaptersMap![0]['title']}""");
     // log("title:${manga.chaptersMap![1]['title']}");
     notifyListeners();
   }
