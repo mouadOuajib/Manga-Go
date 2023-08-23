@@ -139,45 +139,49 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: 180.w,
-                  height: 40.h,
-                  color: Colors.transparent,
-                  child: Center(
-                    child: ListView.builder(
-                        itemCount: 54,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5.w),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  pageIndex = index + 1;
-                                  endPoint =
-                                      "https://ww6.manganelo.tv/genre?page=$pageIndex";
-                                });
-                              },
-                              child: Container(
-                                height: 25,
-                                width: 25,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: pageIndex == (index + 1)
-                                        ? Border.all(
-                                            color: Colors.blue, width: 1)
-                                        : Border.all(
-                                            color: Colors.grey, width: 0.5)),
-                                child: Center(
-                                  child: Text(
-                                    "${index + 1}",
-                                    style: const TextStyle(color: Colors.black),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 15.h),
+                  child: Container(
+                    width: 180.w,
+                    height: 40.h,
+                    color: Colors.transparent,
+                    child: Center(
+                      child: ListView.builder(
+                          itemCount: 54,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5.w),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    pageIndex = index + 1;
+                                    endPoint =
+                                        "https://ww6.manganelo.tv/genre?page=$pageIndex";
+                                  });
+                                },
+                                child: Container(
+                                  height: 25,
+                                  width: 25,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: pageIndex == (index + 1)
+                                          ? Border.all(
+                                              color: Colors.blue, width: 1)
+                                          : Border.all(
+                                              color: Colors.grey, width: 0.5)),
+                                  child: Center(
+                                    child: Text(
+                                      "${index + 1}",
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   ),
                 ),
               ),

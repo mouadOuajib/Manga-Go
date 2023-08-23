@@ -29,7 +29,7 @@ class _FavoriteMangaState extends State<FavoriteManga> {
                   height: 20.h,
                 ),
                 Text(
-                  "Read Later",
+                  "Favorite Mangas",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.sp,

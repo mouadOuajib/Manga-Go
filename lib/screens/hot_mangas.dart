@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mangago/screens/already_read_it.dart';
+import 'package:mangago/screens/current_reading.dart';
+import 'package:mangago/screens/favorite_mangas.dart';
 import 'package:mangago/screens/read_later.dart';
 
 class FavoriteMangaPage extends StatelessWidget {
@@ -7,6 +10,13 @@ class FavoriteMangaPage extends StatelessWidget {
     "Favorite",
     "I already read it",
     "Current reading"
+  ];
+
+  final List screens = const [
+    ReadLater(),
+    FavoriteManga(),
+    FinishedManga(),
+    CurrentReading(),
   ];
 
   FavoriteMangaPage({super.key});
@@ -31,7 +41,7 @@ class FavoriteMangaPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ReadLater()));
+                            builder: (context) => screens[index]));
                   },
                 ),
                 const Divider(),

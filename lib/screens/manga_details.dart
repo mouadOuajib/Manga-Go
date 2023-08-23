@@ -348,12 +348,14 @@ class _MangaDetailsState extends State<MangaDetails> {
                                                     if (manga
                                                             .isAddedToWatchLater ==
                                                         false) {
+                                                      // log(manga.title!);
+                                                      // log(manga.coverImageUrl!);
                                                       watchLaterProvider
                                                           .addToWatchLater(
                                                               Manga(
-                                                        title: manga.title,
+                                                        title: widget.title,
                                                         coverImageUrl:
-                                                            manga.coverImageUrl,
+                                                            widget.imageUrl,
                                                       ));
                                                     } else {
                                                       watchLaterProvider
@@ -422,7 +424,10 @@ class _MangaDetailsState extends State<MangaDetails> {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return UplaodDialog(
-                                                  manga: manga,
+                                                  manga: Manga(
+                                                      title: widget.title,
+                                                      coverImageUrl:
+                                                          widget.imageUrl),
                                                 );
                                               },
                                             );

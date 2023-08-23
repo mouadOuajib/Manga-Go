@@ -29,7 +29,7 @@ class _FinishedMangaState extends State<FinishedManga> {
                   height: 20.h,
                 ),
                 Text(
-                  "Read Later",
+                  "Finished Mangas",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.sp,

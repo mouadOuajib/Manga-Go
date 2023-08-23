@@ -29,7 +29,7 @@ class _CurrentReadingState extends State<CurrentReading> {
                   height: 20.h,
                 ),
                 Text(
-                  "Read Later",
+                  "Current Reading",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.sp,

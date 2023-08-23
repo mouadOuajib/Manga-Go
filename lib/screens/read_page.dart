@@ -55,7 +55,7 @@ class _ReadPageState extends State<ReadPage> {
   Widget _buildAppBar() {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      height: _isAppBarVisible ? kToolbarHeight : 0,
+      height: _isAppBarVisible ? 90.h : 0,
       child: AppBar(
         title: Text(
           widget.chapterTitle,
