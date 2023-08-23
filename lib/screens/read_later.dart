@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mangago/screens/manga_details.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/watch_later.dart';
@@ -54,6 +55,16 @@ class _ReadLaterState extends State<ReadLater> {
                             child: Column(
                               children: [
                                 ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MangaDetails(
+                                                mangaLink: manga.mangaLink!,
+                                                title: manga.title!,
+                                                imageUrl:
+                                                    manga.coverImageUrl!)));
+                                  },
                                   title:
                                       Text(manga.title ?? "this is the title"),
                                   leading: Container(

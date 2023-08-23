@@ -353,6 +353,8 @@ class _MangaDetailsState extends State<MangaDetails> {
                                                       watchLaterProvider
                                                           .addToWatchLater(
                                                               Manga(
+                                                        mangaLink:
+                                                            widget.mangaLink,
                                                         title: widget.title,
                                                         coverImageUrl:
                                                             widget.imageUrl,
@@ -425,6 +427,16 @@ class _MangaDetailsState extends State<MangaDetails> {
                                               builder: (BuildContext context) {
                                                 return UplaodDialog(
                                                   manga: Manga(
+                                                      isAddedToFavorite: manga
+                                                          .isAddedToFavorite,
+                                                      isAddedToCurrentRead: manga
+                                                          .isAddedToCurrentRead,
+                                                      isAddedToFinished: manga
+                                                          .isAddedToFinished,
+                                                      isAddedToWatchLater: manga
+                                                          .isAddedToWatchLater,
+                                                      mangaLink:
+                                                          widget.mangaLink,
                                                       title: widget.title,
                                                       coverImageUrl:
                                                           widget.imageUrl),

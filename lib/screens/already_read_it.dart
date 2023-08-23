@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mangago/provider/finished_manga_provider.dart';
+import 'package:mangago/screens/manga_details.dart';
 import 'package:provider/provider.dart';
 
 class FinishedManga extends StatefulWidget {
@@ -44,15 +45,25 @@ class _FinishedMangaState extends State<FinishedManga> {
                   width: size.width,
                   child: Consumer<FinishedProvider>(
                     builder: (context, finishedProvider, child) {
-                      final finishedList = finishedProvider.finishedMangas;
+                      final finishedMangaList = finishedProvider.finishedMangas;
                       return ListView.builder(
-                        itemCount: finishedList.length,
+                        itemCount: finishedMangaList.length,
                         itemBuilder: (context, index) {
-                          final manga = finishedList[index];
+                          final manga = finishedMangaList[index];
                           return SizedBox(
                             child: Column(
                               children: [
                                 ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MangaDetails(
+                                                mangaLink: manga.mangaLink!,
+                                                title: manga.title!,
+                                                imageUrl:
+                                                    manga.coverImageUrl!)));
+                                  },
                                   title:
                                       Text(manga.title ?? "this is the title"),
                                   leading: Container(

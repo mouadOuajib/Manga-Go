@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mangago/provider/current_reading_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'manga_details.dart';
+
 class CurrentReading extends StatefulWidget {
   const CurrentReading({super.key});
 
@@ -53,6 +55,16 @@ class _CurrentReadingState extends State<CurrentReading> {
                             child: Column(
                               children: [
                                 ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MangaDetails(
+                                                mangaLink: manga.mangaLink!,
+                                                title: manga.title!,
+                                                imageUrl:
+                                                    manga.coverImageUrl!)));
+                                  },
                                   title:
                                       Text(manga.title ?? "this is the title"),
                                   leading: Container(

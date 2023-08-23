@@ -73,6 +73,7 @@ class _UplaodDialogState extends State<UplaodDialog> {
                   log("manga info:${widget.manga}");
                   if (widget.manga.isAddedToCurrentRead == false) {
                     currentProvider.addToCurrentReading(Manga(
+                      mangaLink: widget.manga.mangaLink,
                       title: widget.manga.title,
                       coverImageUrl: widget.manga.coverImageUrl,
                     ));
