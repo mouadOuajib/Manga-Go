@@ -8,6 +8,7 @@ import 'package:mangago/provider/watch_later.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
